@@ -10,34 +10,61 @@
 #
 # Based on Wagner TechTalk genGamelist.py script
 #
+#
+# Usage : retropie2powkiddy.py -r <retropie_system> -p <powkiddy_system>
+#
+# Example :
+# Creates a new system "cps" in Retropie (see retropie doc for adding systems), copy your cps roms in the roms/cps
+# directory and scrap art.
+# Enter the command : retropie2powkiddy.py -r cps -p CPS
 
-import sys, getopt, shutil, os, pathlib, os.path
+
+import sys, getopt, shutil, os, os.path
 from os import path
 from PIL import Image
 from lxml import etree
 from xml.sax.saxutils import escape
 
+# RetroPie target system to import and PowKiddy target system for export
 retroPieTargetSystem = powKiddyTargetSystem = ''
-
 
 def main(argv):
     global retroPieTargetSystem, powKiddyTargetSystem
+    powKiddySupportedSystems = [
+        'CPS',
+        'FBA',
+        'FC',
+        'GB',
+        'GBA',
+        'GBC',
+        'GG',
+        'MD',
+        'NEOGEO',
+        'PS',
+        'SFC',
+    ]
     try:
         opts, args = getopt.getopt(argv, "hr:p:", ["retropiesystem=", "powkiddysystem="])
     except getopt.GetoptError:
         print('retropie2powkiddy.py -r <retropiesystem> -p <powkiddysystem>')
-        print('Supported <powkiddysystem> values : CPS, FBA, FC, GB')
+        print('Available <powkiddysystem> systems : ' + ' '.join(powKiddySupportedSystems))
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print('test.py -r <retropiesystem> -p <powkiddysystem>')
+            print('retropie2powkiddy.py -r <retropiesystem> -p <powkiddysystem>')
             sys.exit()
         elif opt in ("-r", "--retropiesystem"):
             retroPieTargetSystem = arg
         elif opt in ("-p", "--powkiddysystem"):
             powKiddyTargetSystem = arg
-    print('RetroPie system is "' + retroPieTargetSystem)
-    print('powkiddy system is "' + powKiddyTargetSystem)
+            powKiddyTargetSystem = powKiddyTargetSystem.upper()
+    if retroPieTargetSystem == '' or powKiddyTargetSystem == '':
+        print('Missing argument')
+        print('retropie2powkiddy.py -r <retropiesystem> -p <powkiddysystem>')
+        exit()
+    if powKiddyTargetSystem not in powKiddySupportedSystems:
+        print('PowKiddy available systems : ' + ' '.join(powKiddySupportedSystems))
+        exit()
 
 
 if __name__ == "__main__":
@@ -50,9 +77,6 @@ retroPieRootPath = '/opt/retropie'
 
 # Path for retropie roms
 retroPieRomsPath = '/home/jyhere/RetroPie/roms'
-
-# Targeted system
-retroPieTargetSystem = 'cps'
 
 # Set to false if you don't want game art images
 createArtImages = True
@@ -67,23 +91,29 @@ pageSize = 8
 # This is the output file name that will be created, shouldn't need to change this
 outputFileName = 'game_strings_en.xml'
 # New Game Subdirectory
-exportGameSubdir = 'roms'
+exportGameDirPath = 'roms'
 # Name of the directory which will contain your converted images (converted from .jpg to .png) in
 # a filename to match your game (roms).
-imageDirName = 'art'
+imageDirPath = 'art'
 # No art file name (Image that is displayed if no boxart can be found for the game)
 noArtFilename = 'no_art.png'
 
-# No need to change anything below this - I don't think...
+# constants
+EXTENSION_JPG = '.jpg'
+EXTENSION_PNG = '.png'
+GAMELIST_XML = 'gamelist.xml'
 CRLF = '\r\n'
 
-retroPieGameListXml = retroPieRootPath + '/configs/all/emulationstation/gamelists/' + retroPieTargetSystem + '/gamelist.xml'
+retroPieGameListXml = retroPieRootPath + '/configs/all/emulationstation/gamelists/' + retroPieTargetSystem + '/' + GAMELIST_XML
 retroPieGameListImagesPath = retroPieRootPath + '/configs/all/emulationstation/downloaded_images/' + retroPieTargetSystem
 retroPieGameListRomsPath = retroPieRomsPath + '/' + retroPieTargetSystem
 
 if not path.exists(retroPieGameListXml):
-    print("File " + retroPieGameListXml + 'is missing')
-    exit()
+    # try to read xml in rom directory
+    retroPieGameListXml = retroPieGameListRomsPath + '/' + GAMELIST_XML
+    if not path.exists(retroPieGameListXml):
+        print("File " + retroPieGameListXml + 'is missing')
+        exit()
 if not path.exists(retroPieGameListRomsPath):
     print("Directory " + retroPieGameListXml + 'is missing')
     exit()
@@ -97,49 +127,60 @@ if path.exists(retroPieGameListXml):
 
     for game in tree.xpath("/gameList/game"):
         gameProperties = list(game.iter())
-        hasPath = hasName = False
+        gamePath = gameName = gameImage = ''
         for gameProperty in gameProperties:
             if gameProperty.tag == 'path':
-                tmpPath = gameProperty.text
+                gamePath = gameProperty.text
                 hasPath = True
             if gameProperty.tag == 'name':
                 gameName = gameProperty.text
                 hasName = True
+            if gameProperty.tag == 'image':
+                gameImage = gameProperty.text
 
-        if hasPath and hasName:
-            archiveName = tmpPath.lstrip('./')
-            iFileExtensionIndex = tmpPath.rindex('.')
-            gameFileExtension = tmpPath[iFileExtensionIndex:]
+        if gamePath:
+            archiveName = gamePath.lstrip('./')
+            iFileExtensionIndex = gamePath.rindex('.')
+            gameFileExtension = gamePath[iFileExtensionIndex:]
             shortName = archiveName.replace(gameFileExtension, '')
-            gameList[shortName] = {'name': gameName, 'file': archiveName}
+            if not gameName:
+                gameName = shortName
+            if gameImage:
+                if gameImage[0] == '~':
+                    # images are in the home directory
+                    gameImage = os.path.expanduser(gameImage)
+                elif gameImage[0] == '.':
+                    # images are in the gamelist.xml directory
+                    gameImage = retroPieGameListXml.rstrip(GAMELIST_XML) + gameImage.lstrip('./')
+            gameList[shortName] = {'name': gameName, 'file': archiveName, 'image': gameImage}
 
 gameListCount = len(gameList)
 print(gameListCount)
 
-imageDirName = retroPieTargetSystem + '/' + imageDirName
-exportGameSubdir = retroPieTargetSystem + '/' + exportGameSubdir
-sDestinationImagePath = imageDirName + '/'
-
-# Create system directory
-try:
-    os.mkdir(retroPieTargetSystem)
-except FileExistsError:
-    pass
+imageDirPath = "export/settings/res/" + powKiddyTargetSystem + '/pic'
+xmlDirPath = "export/settings/res/" + powKiddyTargetSystem + '/string'
+exportGameDirPath = "export/game/" + powKiddyTargetSystem
+destinationImagePath = imageDirPath + '/'
 
 # If Games are found in the XML
 if createArtImages and gameListCount > 0:
     # Create image directory
     try:
-        os.mkdir(imageDirName)
-        print('Image Directory ', imageDirName, ' created.')
+        os.makedirs(imageDirPath)
+        print('Image Directory ', imageDirPath, ' created.')
     except FileExistsError:
-        print('Image Directory ', imageDirName, ' already exists.')
+        print('Image Directory ', imageDirPath, ' already exists.')
 
 try:
-    os.mkdir(exportGameSubdir)
-    print('Game Directory ', exportGameSubdir, ' created.')
+    os.makedirs(exportGameDirPath)
+    print('Game Directory ', exportGameDirPath, ' created.')
 except FileExistsError:
-    print('Game Directory ', exportGameSubdir, ' already exists.')
+    print('Game Directory ', exportGameDirPath, ' already exists.')
+
+try:
+    os.makedirs(xmlDirPath)
+except FileExistsError:
+    pass
 
 print('Exporting ' + retroPieTargetSystem + 'games:')
 
@@ -166,28 +207,25 @@ for gameShortName, gameData in gameList.items():
 
     # Copying roms
     sourceFilePathName = retroPieGameListRomsPath + '/' + gameData['file']
-    newFilePathName = exportGameSubdir + '/' + gameData['file']
+    newFilePathName = exportGameDirPath + '/' + gameData['file']
     shutil.copyfile(sourceFilePathName, newFilePathName)
 
     # Copy Image file with the new name
-    if createArtImages:
-        sourceImageFile = retroPieGameListImagesPath + '/' + gameShortName + '-image'
-        # convert art if format is JPG
-        sourceImageFileExistsJPG = path.exists(sourceImageFile + '.jpg')
-        sourceImageFileExistsPNG = path.exists(sourceImageFile + '.png')
-        if sourceImageFileExistsJPG:
-            # Convert .jpg artwork to .png (needed for Powkiddy A12)
-            destImageFile = sDestinationImagePath + gameShortName + '.png'
-            img = Image.open(sourceImageFile + '.jpg')
-            img.save(destImageFile)
-        elif sourceImageFileExistsPNG:
-            destImageFile = sDestinationImagePath + '/' + gameShortName + '.png'
-            shutil.copyfile(sourceImageFile + '.png', destImageFile)
-        elif createNoArtImage:
-            # If unable to copy, use default image (you can customize this, if you want)
-            sourceImageFile = noArtFilename
-            destImageFile = sDestinationImagePath + '/' + gameShortName + '.png'
-            shutil.copyfile(sourceImageFile, destImageFile)
+    if createArtImages and gameData['image']:
+        if path.exists(gameData['image']):
+            imageFileName, imageFileExtension = os.path.splitext(gameData['image'])
+            # If image is in jpg format, we need to convert it to png
+            # If no image is found, we create a default iamge
+            if imageFileExtension.lower() == '.jpg':
+                destImageFile = destinationImagePath + gameShortName + '.png'
+                img = Image.open(gameData['image'])
+                img.save(destImageFile)
+            elif imageFileExtension.lower() == '.png':
+                destImageFile = destinationImagePath + '/' + gameShortName + '.png'
+                shutil.copyfile(gameData['image'], destImageFile)
+            elif createNoArtImage:
+                destImageFile = destinationImagePath + '/' + gameShortName + '.png'
+                shutil.copyfile(noArtFilename, destImageFile)
 
         xmlOutput = xmlOutput + '    <icon' + str(currentItemOnPage) + '_para  name=\"' + str(currentItem) + '.' + escape(gameData['name']) + '\" game_path=\"' + gameData['file'] + '\"></icon' + str(currentItemOnPage) + '_para> ' + CRLF
 
@@ -215,13 +253,15 @@ xmlOutput = xmlOutput + '</strings_resources>   ' + CRLF
 # line termination.
 bytes = bytearray()
 bytes.extend(xmlOutput.encode())
-oFile = open(retroPieTargetSystem + '/' + outputFileName, "bw")
+oFile = open(xmlDirPath + '/' + outputFileName, "bw")
 oFile.write(bytes)
 oFile.close()
 
 # Output a summary
 print('*** SUMMARY OF ACTIONS ***')
-print('\"' + retroPieTargetSystem + '/' + outputFileName + '\" created.')
+print('\"' + xmlDirPath + '/' + outputFileName + '\" created.')
+print('Roms copied to \"' + exportGameDirPath + '\"')
+print('Roms art images generated in \"' + imageDirPath + '\"')
 print('Games found and Processed : ' + str(currentItem - 1))
 print('Pages generated : ' + str(currentPage) + ' [up to ' + str(pageSize) + ' games per page]')
 
