@@ -19,60 +19,21 @@
 # Enter the command : retropie2powkiddy.py -r cps -p CPS
 
 
-import sys, getopt, shutil, os, os.path
+import sys, getopt, shutil, os.path
 from os import path
 from PIL import Image
 from lxml import etree
 from xml.sax.saxutils import escape
 from operator import itemgetter
+from xml.etree.ElementTree import Element, SubElement, Comment
+from xml.etree import ElementTree
+from xml.dom import minidom
+
 
 # RetroPie target system to import and PowKiddy target system for export
 retroPieTargetSystem = powKiddyTargetSystem = ''
 
-def main(argv):
-    global retroPieTargetSystem, powKiddyTargetSystem
-    powKiddySupportedSystems = [
-        'CPS',
-        'FBA',
-        'FC',
-        'GB',
-        'GBA',
-        'GBC',
-        'GG',
-        'MD',
-        'NEOGEO',
-        'PS',
-        'SFC',
-    ]
-    try:
-        opts, args = getopt.getopt(argv, "hr:p:", ["retropiesystem=", "powkiddysystem="])
-    except getopt.GetoptError:
-        print('retropie2powkiddy.py -r <retropiesystem> -p <powkiddysystem>')
-        print('Available <powkiddysystem> systems : ' + ' '.join(powKiddySupportedSystems))
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-            print('retropie2powkiddy.py -r <retropiesystem> -p <powkiddysystem>')
-            sys.exit()
-        elif opt in ("-r", "--retropiesystem"):
-            retroPieTargetSystem = arg
-        elif opt in ("-p", "--powkiddysystem"):
-            powKiddyTargetSystem = arg
-            powKiddyTargetSystem = powKiddyTargetSystem.upper()
-    if retroPieTargetSystem == '' or powKiddyTargetSystem == '':
-        print('Missing argument')
-        print('retropie2powkiddy.py -r <retropiesystem> -p <powkiddysystem>')
-        exit()
-    if powKiddyTargetSystem not in powKiddySupportedSystems:
-        print('PowKiddy available systems : ' + ' '.join(powKiddySupportedSystems))
-        exit()
 
-
-if __name__ == "__main__":
-    main(sys.argv[1:])
-
-
-# ====== IMPORTANT =======
 # Root path of retropie installation
 retroPieRootPath = '/opt/retropie'
 
@@ -91,19 +52,62 @@ pageSize = 8
 
 # This is the output file name that will be created, shouldn't need to change this
 outputFileName = 'game_strings_en.xml'
+
 # New Game Subdirectory
 exportGameDirPath = 'roms'
+
 # Name of the directory which will contain your converted images (converted from .jpg to .png) in
 # a filename to match your game (roms).
 imageDirPath = 'art'
+
 # No art file name (Image that is displayed if no boxart can be found for the game)
 noArtFilename = 'no_art.png'
 
-# constants
+# Available systems on PowKiddy A12
+powKiddySupportedSystems = [
+    'CPS',
+    'FBA',
+    'FC',
+    'GB',
+    'GBA',
+    'GBC',
+    'GG',
+    'MD',
+    'NEOGEO',
+    'PS',
+    'SFC',
+]
+
+# Constants
 EXTENSION_JPG = '.jpg'
 EXTENSION_PNG = '.png'
 GAMELIST_XML = 'gamelist.xml'
 CRLF = '\r\n'
+
+# Getting arguments from command line
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "hr:p:", ["retropiesystem=", "powkiddysystem="])
+except getopt.GetoptError:
+    print('retropie2powkiddy.py -r <retropiesystem> -p <powkiddysystem>')
+    print('Available <powkiddysystem> systems : ' + ' '.join(powKiddySupportedSystems))
+    sys.exit(2)
+for opt, arg in opts:
+    if opt == '-h':
+        print('retropie2powkiddy.py -r <retropiesystem> -p <powkiddysystem>')
+        sys.exit()
+    elif opt in ("-r", "--retropiesystem"):
+        retroPieTargetSystem = arg
+    elif opt in ("-p", "--powkiddysystem"):
+        powKiddyTargetSystem = arg
+        powKiddyTargetSystem = powKiddyTargetSystem.upper()
+if retroPieTargetSystem == '' or powKiddyTargetSystem == '':
+    print('Missing argument')
+    print('retropie2powkiddy.py -r <retropiesystem> -p <powkiddysystem>')
+    exit()
+if powKiddyTargetSystem not in powKiddySupportedSystems:
+    print('PowKiddy available systems : ' + ' '.join(powKiddySupportedSystems))
+    exit()
+
 
 retroPieGameListXml = retroPieRootPath + '/configs/all/emulationstation/gamelists/' + retroPieTargetSystem + '/' + GAMELIST_XML
 retroPieGameListImagesPath = retroPieRootPath + '/configs/all/emulationstation/downloaded_images/' + retroPieTargetSystem
@@ -190,7 +194,7 @@ except FileExistsError:
 
 print('Exporting ' + retroPieTargetSystem + 'games:')
 
-iPageCount = round(gameListCount / pageSize)
+pageCount = round(gameListCount / pageSize)
 xmlOutput = ''
 xmlOutput = xmlOutput + '<?xml version="1.0"?>   ' + CRLF
 xmlOutput = xmlOutput + '<strings_resources>   ' + CRLF
