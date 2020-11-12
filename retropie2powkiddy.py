@@ -30,6 +30,17 @@ from xml.etree import ElementTree
 from xml.dom import minidom
 
 
+def chunks(alist, maxchunkelements):
+    maxchunkelements = max(1, maxchunkelements)
+    return (alist[i:i + maxchunkelements] for i in range(0, len(alist), maxchunkelements))
+
+
+def prettify(element):
+    rough_string = ElementTree.tostring(element, 'utf-8')
+    reparsed = minidom.parseString(rough_string)
+    return reparsed.toprettyxml(indent="  ")
+
+
 # RetroPie target system to import and PowKiddy target system for export
 retroPieTargetSystem = powKiddyTargetSystem = ''
 
@@ -194,76 +205,60 @@ except FileExistsError:
 
 print('Exporting ' + retroPieTargetSystem + 'games:')
 
-pageCount = round(gameListCount / pageSize)
 xmlOutput = ''
 xmlOutput = xmlOutput + '<?xml version="1.0"?>   ' + CRLF
 xmlOutput = xmlOutput + '<strings_resources>   ' + CRLF
 xmlOutput = xmlOutput + '<icon_para game_list_total=' + str(gameListCount) + '></icon_para>   ' + CRLF
 
-currentPage = currentItem = 1
-currentItemOnPage = 0
+stringRessources = Element('string_resources')
+iconPara = SubElement(stringRessources, 'icon_para', {'game_list_total': str(gameListCount)})
 
-# Indicates if page closing is needed
-pageOpened = False
+currentPage = currentItem = currentItemOnPage = 0
 
-for gameData in gameList:
-    print(gameData['short'] + '... ', end='')
+gameListChunks = chunks(gameList, pageSize)
 
-    # Page header
-    if currentItemOnPage == 0:
-        xmlOutput = xmlOutput + '  <icon_page' + str(currentPage) + '> ' + CRLF
-        pageOpened = True
-
-    # Copying roms
-    sourceFilePathName = retroPieGameListRomsPath + '/' + gameData['file']
-    newFilePathName = exportGameDirPath + '/' + gameData['file']
-    shutil.copyfile(sourceFilePathName, newFilePathName)
-
-    # Copy Image file with the new name
-    if createArtImages and gameData['image']:
-        if path.exists(gameData['image']):
-            imageFileName, imageFileExtension = os.path.splitext(gameData['image'])
-            # If image is in jpg format, we need to convert it to png
-            # If no image is found, we create a default iamge
-            if imageFileExtension.lower() == '.jpg':
-                destImageFile = destinationImagePath + gameData['short'] + '.png'
-                img = Image.open(gameData['image'])
-                img.save(destImageFile)
-            elif imageFileExtension.lower() == '.png':
-                destImageFile = destinationImagePath + '/' + gameData['short'] + '.png'
-                shutil.copyfile(gameData['image'], destImageFile)
-            elif createNoArtImage:
-                destImageFile = destinationImagePath + '/' + gameData['short'] + '.png'
-                shutil.copyfile(noArtFilename, destImageFile)
-
-        xmlOutput = xmlOutput + '    <icon' + str(currentItemOnPage) + '_para  name=\"' + str(currentItem) + '.' + escape(gameData['name']) + '\" game_path=\"' + escape(gameData['file']) + '\"></icon' + str(currentItemOnPage) + '_para> ' + CRLF
-
-    print('OK')
-    # Page Suffix
-    if (currentItemOnPage == pageSize - 1) or (currentItem == gameListCount and currentItemOnPage + 1 == pageSize - 1):
-        xmlOutput = xmlOutput + '  </icon_page' + str(currentPage) + '> ' + CRLF
-        currentItemOnPage = -1
-        currentPage += 1
-        pageOpened = False
-
-    if currentItem <= gameListCount:
+for gameListChunk in gameListChunks:
+    currentPage += 1
+    for gameData in gameListChunk:
         currentItem += 1
-        currentItemOnPage += 1
+        print(gameData['short'] + '... ', end='')
 
-# Page Suffix (if not already added)
-if pageOpened:
-    xmlOutput = xmlOutput + '  </icon_page' + str(currentPage) + '> ' + CRLF
+        # Page header
+        if currentItemOnPage == 0:
+            iconPara = SubElement(stringRessources, 'icon_page' + str(currentPage))
 
-# File end tag
-xmlOutput = xmlOutput + '</strings_resources>   ' + CRLF
+        # Copying roms
+        sourceFilePathName = retroPieGameListRomsPath + '/' + gameData['file']
+        newFilePathName = exportGameDirPath + '/' + gameData['file']
+        shutil.copyfile(sourceFilePathName, newFilePathName)
 
-# Save the generated configuration file to the current directory
-# Writing as a binary file solved some issues I experienced with
-# line termination.
-bytes = bytearray()
-bytes.extend(xmlOutput.encode())
+        # Copy Image file with the new name
+        if createArtImages and gameData['image']:
+            if path.exists(gameData['image']):
+                imageFileName, imageFileExtension = os.path.splitext(gameData['image'])
+                # If image is in jpg format, convert it to png
+                # If no image is found, create a default image
+                if imageFileExtension.lower() == '.jpg':
+                    destImageFile = destinationImagePath + gameData['short'] + '.png'
+                    img = Image.open(gameData['image'])
+                    img.save(destImageFile)
+                elif imageFileExtension.lower() == '.png':
+                    destImageFile = destinationImagePath + '/' + gameData['short'] + '.png'
+                    shutil.copyfile(gameData['image'], destImageFile)
+                elif createNoArtImage:
+                    destImageFile = destinationImagePath + '/' + gameData['short'] + '.png'
+                    shutil.copyfile(noArtFilename, destImageFile)
+
+        SubElement(iconPara, 'icon' + str(currentItemOnPage) + '_para', {
+            'name': str(currentItem) + '.' + gameData['name'],
+            'game_path': gameData['file']
+        })
+        print('OK')
+
+asBinary = bytearray()
+asBinary.extend(prettify(stringRessources).encode())
 oFile = open(xmlDirPath + '/' + outputFileName, "bw")
-oFile.write(bytes)
+oFile.write(asBinary)
 oFile.close()
 
 # Output a summary
