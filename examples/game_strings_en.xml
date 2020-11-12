@@ -1,0 +1,208 @@
+<?xml version="1.0"?>   
+<strings_resources>   
+  <icon_para game_list_total=162></icon_para>
+  <icon_page1> 
+    <icon0_para  name="1.1942" game_path="1942.zip"></icon0_para> 
+    <icon1_para  name="2.1943: The Battle of Midway" game_path="1943.zip"></icon1_para> 
+    <icon2_para  name="3.19XX: The War Against Destiny" game_path="19xx.zip"></icon2_para> 
+    <icon3_para  name="4.Aero Fighters 2" game_path="sonicwi2.zip"></icon3_para> 
+    <icon4_para  name="5.Aero Fighters Special" game_path="aerofgts.zip"></icon4_para> 
+    <icon5_para  name="6.Air Buster" game_path="airbustr.zip"></icon5_para> 
+    <icon6_para  name="7.Air Gallet" game_path="agallet.zip"></icon6_para> 
+    <icon7_para  name="8.Alpha Mission II" game_path="alpham2.zip"></icon7_para> 
+  </icon_page1> 
+  <icon_page2> 
+    <icon0_para  name="9.Andro Dunos" game_path="androdun.zip"></icon0_para> 
+    <icon1_para  name="10.Batrider" game_path="batrider.zip"></icon1_para> 
+    <icon2_para  name="11.Batsugun" game_path="batsugun.zip"></icon2_para> 
+    <icon3_para  name="12.Batsugun" game_path="batsugunsp.zip"></icon3_para> 
+    <icon4_para  name="13.Battle Bakraid" game_path="bbakraid.zip"></icon4_para> 
+    <icon5_para  name="14.Battle Chopper" game_path="bchopper.zip"></icon5_para> 
+    <icon6_para  name="15.Battle Garegga" game_path="bgaregga.zip"></icon6_para> 
+    <icon7_para  name="16.Bells &amp; Whistles" game_path="blswhstl.zip"></icon7_para> 
+  </icon_page2> 
+  <icon_page3> 
+    <icon0_para  name="17.BlaZeon" game_path="blazeon.zip"></icon0_para> 
+    <icon1_para  name="18.Black Heart" game_path="blkheart.zip"></icon1_para> 
+    <icon2_para  name="19.Blazing Star" game_path="blazstar.zip"></icon2_para> 
+    <icon3_para  name="20.Boogie Wings" game_path="boogwing.zip"></icon3_para> 
+    <icon4_para  name="21.Bosconian" game_path="bosco.zip"></icon4_para> 
+    <icon5_para  name="22.Brave Blade" game_path="brvblade.zip"></icon5_para> 
+    <icon6_para  name="23.Carrier Air Wing" game_path="cawing.zip"></icon6_para> 
+    <icon7_para  name="24.Choplifter" game_path="choplift.zip"></icon7_para> 
+  </icon_page3> 
+  <icon_page4> 
+    <icon0_para  name="25.Chuka Taisen (Cloud Master)" game_path="chukatai.zip"></icon0_para> 
+    <icon1_para  name="26.Cobra Command" game_path="cobracom.zip"></icon1_para> 
+    <icon2_para  name="27.Cosmo Gang The Video" game_path="cosmogng.zip"></icon2_para> 
+    <icon3_para  name="28.Cotton 2: Magical Night Dreams" game_path="cotton2.zip"></icon3_para> 
+    <icon4_para  name="29.Cotton Boomerang" game_path="cottonbm.zip"></icon4_para> 
+    <icon5_para  name="30.Cotton: Fantastic Night Dreams" game_path="cotton.zip"></icon5_para> 
+    <icon6_para  name="31.Cybattler" game_path="cybattlr.zip"></icon6_para> 
+    <icon7_para  name="32.Cyvern" game_path="cyvern.zip"></icon7_para> 
+  </icon_page4> 
+  <icon_page5> 
+    <icon0_para  name="33.Darius" game_path="darius.zip"></icon0_para> 
+    <icon1_para  name="34.Darius Gaiden" game_path="dariusg.zip"></icon1_para> 
+    <icon2_para  name="35.Darius II" game_path="darius2d.zip"></icon2_para> 
+    <icon3_para  name="36.Darius II" game_path="darius2.zip"></icon3_para> 
+    <icon4_para  name="37.Deathsmiles" game_path="deathsml.zip"></icon4_para> 
+    <icon5_para  name="38.Desert War" game_path="desertwr.zip"></icon5_para> 
+    <icon6_para  name="39.Dimahoo" game_path="dimahoo.zip"></icon6_para> 
+    <icon7_para  name="40.DoDonPachi" game_path="ddonpach.zip"></icon7_para> 
+  </icon_page5> 
+  <icon_page6> 
+    <icon0_para  name="41.DoDonPachi Dai-Ou-Jou V101" game_path="ddpdoj.zip"></icon0_para> 
+    <icon1_para  name="42.DoDonPachi II - Bee Storm" game_path="ddp2.zip"></icon1_para> 
+    <icon2_para  name="43.Dogyuun" game_path="dogyuun.zip"></icon2_para> 
+    <icon3_para  name="44.Dragon Blaze" game_path="dragnblz.zip"></icon3_para> 
+    <icon4_para  name="45.Dragon Breed" game_path="dbreed.zip"></icon4_para> 
+    <icon5_para  name="46.Dragon Spirit" game_path="dspirit.zip"></icon5_para> 
+    <icon6_para  name="47.E.D.F. Earth Defense Force" game_path="edf.zip"></icon6_para> 
+    <icon7_para  name="48.ESP Ra.De." game_path="esprade.zip"></icon7_para> 
+  </icon_page6> 
+  <icon_page7> 
+    <icon0_para  name="49.Eco Fighters" game_path="ecofghtr.zip"></icon0_para> 
+    <icon1_para  name="50.Espgaluda" game_path="espgal.zip"></icon1_para> 
+    <icon2_para  name="51.Espgaluda II" game_path="espgal2.zip"></icon2_para> 
+    <icon3_para  name="52.Fantastic Journey" game_path="fantjour.zip"></icon3_para> 
+    <icon4_para  name="53.Fever SOS" game_path="feversos.zip"></icon4_para> 
+    <icon5_para  name="54.Final Star Force" game_path="fstarfrc.zip"></icon5_para> 
+    <icon6_para  name="55.Flying Shark" game_path="fshark.zip"></icon6_para> 
+    <icon7_para  name="56.G-Darius" game_path="gdarius.zip"></icon7_para> 
+  </icon_page7> 
+  <icon_page8> 
+    <icon0_para  name="57.G-Darius" game_path="gdarius2.zip"></icon0_para> 
+    <icon1_para  name="58.Galaga" game_path="galaga.zip"></icon1_para> 
+    <icon2_para  name="59.Galaga '88" game_path="galaga88.zip"></icon2_para> 
+    <icon3_para  name="60.Galaxy Force II" game_path="gforce2.zip"></icon3_para> 
+    <icon4_para  name="61.Gemini Wing" game_path="gemini.zip"></icon4_para> 
+    <icon5_para  name="62.Giga Wing" game_path="gigawing.zip"></icon5_para> 
+    <icon6_para  name="63.Gradius" game_path="gradius.zip"></icon6_para> 
+    <icon7_para  name="64.Gradius 4" game_path="gradius4.zip"></icon7_para> 
+  </icon_page8> 
+  <icon_page9> 
+    <icon0_para  name="65.Gradius III" game_path="gradius3.zip"></icon0_para> 
+    <icon1_para  name="66.Gratia - Second Earth" game_path="gratia.zip"></icon1_para> 
+    <icon2_para  name="67.Gun Frontier" game_path="gunfront.zip"></icon2_para> 
+    <icon3_para  name="68.Gun Lock" game_path="gunlock.zip"></icon3_para> 
+    <icon4_para  name="69.Gunbird" game_path="gunbird.zip"></icon4_para> 
+    <icon5_para  name="70.Gunbird 2" game_path="gunbird2.zip"></icon5_para> 
+    <icon6_para  name="71.Guwange" game_path="guwange.zip"></icon6_para> 
+    <icon7_para  name="72.Gyruss" game_path="gyruss.zip"></icon7_para> 
+  </icon_page9> 
+  <icon_page10> 
+    <icon0_para  name="73.Hellfire" game_path="hellfire.zip"></icon0_para> 
+    <icon1_para  name="74.Hyper Duel" game_path="hyprduel.zip"></icon1_para> 
+    <icon2_para  name="75.Hyper Dyne Side Arms" game_path="sidearms.zip"></icon2_para> 
+    <icon3_para  name="76.Ibara Kuro: Black Label" game_path="ibarablk.zip"></icon3_para> 
+    <icon4_para  name="77.In the Hunt" game_path="inthunt.zip"></icon4_para> 
+    <icon5_para  name="78.Juno First" game_path="junofrst.zip"></icon5_para> 
+    <icon6_para  name="79.Ketsui: Kizuna Jigoku Tachi" game_path="ket.zip"></icon6_para> 
+    <icon7_para  name="80.Koutetsu Yousai Strahl" game_path="strahl.zip"></icon7_para> 
+  </icon_page10> 
+  <icon_page11> 
+    <icon0_para  name="81.Last Resort" game_path="lresort.zip"></icon0_para> 
+    <icon1_para  name="82.Legendary Wings" game_path="lwings.zip"></icon1_para> 
+    <icon2_para  name="83.Lethal Thunder" game_path="lethalth.zip"></icon2_para> 
+    <icon3_para  name="84.Macross II" game_path="macross2.zip"></icon3_para> 
+    <icon4_para  name="85.Macross Plus" game_path="macrossp.zip"></icon4_para> 
+    <icon5_para  name="86.Mars Matrix" game_path="mmatrix.zip"></icon5_para> 
+    <icon6_para  name="87.Mazinger Z" game_path="mazinger.zip"></icon6_para> 
+    <icon7_para  name="88.Metal Black" game_path="metalb.zip"></icon7_para> 
+  </icon_page11> 
+  <icon_page12> 
+    <icon0_para  name="89.Moon Cresta" game_path="mooncrst.zip"></icon0_para> 
+    <icon1_para  name="90.Muchi Muchi Pork!" game_path="mmpork.zip"></icon1_para> 
+    <icon2_para  name="91.Mushihime-sama Futari Black Label" game_path="futaribl.zip"></icon2_para> 
+    <icon3_para  name="92.Mushihimesama" game_path="mushisam.zip"></icon3_para> 
+    <icon4_para  name="93.Mystic Riders" game_path="mysticri.zip"></icon4_para> 
+    <icon5_para  name="94.Namco Classic Collection Volume 1" game_path="ncv1.zip"></icon5_para> 
+    <icon6_para  name="95.Nemesis" game_path="nemesis.zip"></icon6_para> 
+    <icon7_para  name="96.Nostradamus" game_path="nost.zip"></icon7_para> 
+  </icon_page12> 
+  <icon_page13> 
+    <icon0_para  name="97.Ordyne" game_path="ordyne.zip"></icon0_para> 
+    <icon1_para  name="98.P-47 Aces" game_path="p47aces.zip"></icon1_para> 
+    <icon2_para  name="99.P-47: The Phantom Fighter" game_path="p47.zip"></icon2_para> 
+    <icon3_para  name="100.Parodius" game_path="parodius.zip"></icon3_para> 
+    <icon4_para  name="101.Phelios" game_path="phelios.zip"></icon4_para> 
+    <icon5_para  name="102.Pink Sweets: Ibara Sorekara" game_path="pinkswts.zip"></icon5_para> 
+    <icon6_para  name="103.Plus Alpha" game_path="plusalph.zip"></icon6_para> 
+    <icon7_para  name="104.Prehistoric Isle" game_path="prehisle.zip"></icon7_para> 
+  </icon_page13> 
+  <icon_page14> 
+    <icon0_para  name="105.Progear: Storm Of Progia" game_path="progear.zip"></icon0_para> 
+    <icon1_para  name="106.Pulstar" game_path="pulstar.zip"></icon1_para> 
+    <icon2_para  name="107.R-Type" game_path="rtype.zip"></icon2_para> 
+    <icon3_para  name="108.R-Type II" game_path="rtype2.zip"></icon3_para> 
+    <icon4_para  name="109.R-Type Leo" game_path="rtypeleo.zip"></icon4_para> 
+    <icon5_para  name="110.Radiant Silvergun" game_path="rsgun.zip"></icon5_para> 
+    <icon6_para  name="111.Raiden" game_path="raiden.zip"></icon6_para> 
+    <icon7_para  name="112.Raiden Fighters 2: Operation Hell Dive" game_path="rdft2.zip"></icon7_para> 
+  </icon_page14> 
+  <icon_page15> 
+    <icon0_para  name="113.Raiden Fighters Jet" game_path="rfjet.zip"></icon0_para> 
+    <icon1_para  name="114.Raiden II" game_path="raiden2.zip"></icon1_para> 
+    <icon2_para  name="115.Ray Storm" game_path="raystorm.zip"></icon2_para> 
+    <icon3_para  name="116.Rohga: Armor Force" game_path="rohga.zip"></icon3_para> 
+    <icon4_para  name="117.Ryu Jin" game_path="ryujin.zip"></icon4_para> 
+    <icon5_para  name="118.Saint Dragon" game_path="stdragon.zip"></icon5_para> 
+    <icon6_para  name="119.Salamander" game_path="salamand.zip"></icon6_para> 
+    <icon7_para  name="120.Salamander 2" game_path="salmndr2.zip"></icon7_para> 
+  </icon_page15> 
+  <icon_page16> 
+    <icon0_para  name="121.Samurai Aces" game_path="samuraia.zip"></icon0_para> 
+    <icon1_para  name="122.Sexy Parodius" game_path="sexyparo.zip"></icon1_para> 
+    <icon2_para  name="123.Shienryu" game_path="shienryu.zip"></icon2_para> 
+    <icon3_para  name="124.Sol Divide" game_path="soldivid.zip"></icon3_para> 
+    <icon4_para  name="125.Sorcer Striker" game_path="sstriker.zip"></icon4_para> 
+    <icon5_para  name="126.Soukyugurentai / Terra Diver" game_path="sokyugrt.zip"></icon5_para> 
+    <icon6_para  name="127.Space Invaders DX" game_path="spacedx.zip"></icon6_para> 
+    <icon7_para  name="128.Storm Blade" game_path="stmblade.zip"></icon7_para> 
+  </icon_page16> 
+  <icon_page17> 
+    <icon0_para  name="129.Strato Fighter" game_path="stratof.zip"></icon0_para> 
+    <icon1_para  name="130.Strikers 1945 II" game_path="s1945ii.zip"></icon1_para> 
+    <icon2_para  name="131.Strikers 1945 III" game_path="s1945iii.zip"></icon2_para> 
+    <icon3_para  name="132.Super Space Invaders 91" game_path="ssi.zip"></icon3_para> 
+    <icon4_para  name="133.Super Spacefortress Macross" game_path="macross.zip"></icon4_para> 
+    <icon5_para  name="134.Tengai" game_path="tengai.zip"></icon5_para> 
+    <icon6_para  name="135.Tenkomori Shooting" game_path="tenkomor.zip"></icon6_para> 
+    <icon7_para  name="136.Terra Cresta" game_path="terracre.zip"></icon7_para> 
+  </icon_page17> 
+  <icon_page18> 
+    <icon0_para  name="137.Terra Force" game_path="terraf.zip"></icon0_para> 
+    <icon1_para  name="138.The Game Paradise: Master Of Shooting" game_path="gametngk.zip"></icon1_para> 
+    <icon2_para  name="139.Thunder Cross" game_path="thunderx.zip"></icon2_para> 
+    <icon3_para  name="140.Thunder Cross II" game_path="thndrx2.zip"></icon3_para> 
+    <icon4_para  name="141.Thunder Dragon 2" game_path="tdragon2.zip"></icon4_para> 
+    <icon5_para  name="142.Time Pilot" game_path="timeplt.zip"></icon5_para> 
+    <icon6_para  name="143.Truxton" game_path="truxton.zip"></icon6_para> 
+    <icon7_para  name="144.Twin Bee Yahhoo!" game_path="tbyahhoo.zip"></icon7_para> 
+  </icon_page18> 
+  <icon_page19> 
+    <icon0_para  name="145.Twin Cobra" game_path="twincobr.zip"></icon0_para> 
+    <icon1_para  name="146.Twin Cobra II" game_path="tcobra2.zip"></icon1_para> 
+    <icon2_para  name="147.Twin Eagle - Revenge of Joe's Brother" game_path="twineagl.zip"></icon2_para> 
+    <icon3_para  name="148.Twin Eagle II: The Rescue Mission" game_path="twineag2.zip"></icon3_para> 
+    <icon4_para  name="149.Twin Hawk" game_path="twinhawk.zip"></icon4_para> 
+    <icon5_para  name="150.Twinkle Star Sprites" game_path="twinspri.zip"></icon5_para> 
+    <icon6_para  name="151.U.N. Squadron" game_path="unsquad.zip"></icon6_para> 
+    <icon7_para  name="152.Ultra X Weapons" game_path="ultrax.zip"></icon7_para> 
+  </icon_page19> 
+  <icon_page20> 
+    <icon0_para  name="153.Vasara" game_path="vasara.zip"></icon0_para> 
+    <icon1_para  name="154.Vasara 2" game_path="vasara2.zip"></icon1_para> 
+    <icon2_para  name="155.Viper Phase 1" game_path="viprp1.zip"></icon2_para> 
+    <icon3_para  name="156.Wonder Planet" game_path="wndrplnt.zip"></icon3_para> 
+    <icon4_para  name="157.X Multiply" game_path="xmultipl.zip"></icon4_para> 
+    <icon5_para  name="158.Xevious" game_path="xevious.zip"></icon5_para> 
+    <icon6_para  name="159.Xevious 3DG" game_path="xevi3dg.zip"></icon6_para> 
+    <icon7_para  name="160.Xexex" game_path="xexex.zip"></icon7_para> 
+  </icon_page20> 
+  <icon_page21> 
+    <icon0_para  name="161.Xexex" game_path="xexexj.zip"></icon0_para> 
+    <icon1_para  name="162.Zero Wing" game_path="zerowing.zip"></icon1_para> 
+  </icon_page21> 
+</strings_resources>   
