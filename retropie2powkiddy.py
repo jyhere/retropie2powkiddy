@@ -24,6 +24,7 @@ from os import path
 from PIL import Image
 from lxml import etree
 from xml.sax.saxutils import escape
+from operator import itemgetter
 
 # RetroPie target system to import and PowKiddy target system for export
 retroPieTargetSystem = powKiddyTargetSystem = ''
@@ -140,23 +141,28 @@ if path.exists(retroPieGameListXml):
 
         if gamePath:
             archiveName = gamePath.lstrip('./')
-            iFileExtensionIndex = gamePath.rindex('.')
-            gameFileExtension = gamePath[iFileExtensionIndex:]
-            shortName = archiveName.replace(gameFileExtension, '')
-            if not gameName:
-                gameName = shortName
-            if gameImage:
-                if gameImage[0] == '~':
-                    # images are in the home directory
-                    gameImage = os.path.expanduser(gameImage)
-                elif gameImage[0] == '.':
-                    # images are in the gamelist.xml directory
-                    gameImage = retroPieGameListXml.rstrip(GAMELIST_XML) + gameImage.lstrip('./')
-            gameList[shortName] = {'name': gameName, 'file': archiveName, 'image': gameImage}
+            if path.exists(retroPieGameListRomsPath + '/' + archiveName):
+                iFileExtensionIndex = gamePath.rindex('.')
+                gameFileExtension = gamePath[iFileExtensionIndex:]
+                shortName = archiveName.replace(gameFileExtension, '')
+                if not gameName:
+                    gameName = shortName
+                if gameImage:
+                    if gameImage[0] == '~':
+                        # images are in the home directory
+                        gameImage = os.path.expanduser(gameImage)
+                    elif gameImage[0] == '.':
+                        # images are in the gamelist.xml directory
+                        gameImage = retroPieGameListXml.rstrip(GAMELIST_XML) + gameImage.lstrip('./')
+                gameList[shortName] = {'name': gameName, 'short': shortName, 'file': archiveName, 'image': gameImage}
 
 gameListCount = len(gameList)
 print(gameListCount)
 
+# Sorting games by full name
+gameList = sorted(gameList.values(), key=itemgetter('name'))
+
+# Setting paths
 imageDirPath = "export/settings/res/" + powKiddyTargetSystem + '/pic'
 xmlDirPath = "export/settings/res/" + powKiddyTargetSystem + '/string'
 exportGameDirPath = "export/game/" + powKiddyTargetSystem
@@ -196,9 +202,8 @@ currentItemOnPage = 0
 # Indicates if page closing is needed
 pageOpened = False
 
-for gameShortName, gameData in gameList.items():
-
-    print(gameShortName + '... ', end='')
+for gameData in gameList:
+    print(gameData['short'] + '... ', end='')
 
     # Page header
     if currentItemOnPage == 0:
@@ -217,17 +222,17 @@ for gameShortName, gameData in gameList.items():
             # If image is in jpg format, we need to convert it to png
             # If no image is found, we create a default iamge
             if imageFileExtension.lower() == '.jpg':
-                destImageFile = destinationImagePath + gameShortName + '.png'
+                destImageFile = destinationImagePath + gameData['short'] + '.png'
                 img = Image.open(gameData['image'])
                 img.save(destImageFile)
             elif imageFileExtension.lower() == '.png':
-                destImageFile = destinationImagePath + '/' + gameShortName + '.png'
+                destImageFile = destinationImagePath + '/' + gameData['short'] + '.png'
                 shutil.copyfile(gameData['image'], destImageFile)
             elif createNoArtImage:
-                destImageFile = destinationImagePath + '/' + gameShortName + '.png'
+                destImageFile = destinationImagePath + '/' + gameData['short'] + '.png'
                 shutil.copyfile(noArtFilename, destImageFile)
 
-        xmlOutput = xmlOutput + '    <icon' + str(currentItemOnPage) + '_para  name=\"' + str(currentItem) + '.' + escape(gameData['name']) + '\" game_path=\"' + gameData['file'] + '\"></icon' + str(currentItemOnPage) + '_para> ' + CRLF
+        xmlOutput = xmlOutput + '    <icon' + str(currentItemOnPage) + '_para  name=\"' + str(currentItem) + '.' + escape(gameData['name']) + '\" game_path=\"' + escape(gameData['file']) + '\"></icon' + str(currentItemOnPage) + '_para> ' + CRLF
 
     print('OK')
     # Page Suffix

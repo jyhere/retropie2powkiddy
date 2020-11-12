@@ -1,0 +1,106 @@
+# A retirer des roms FBA car double ou ne fonctionnant pas
+
+- Non supporté
+    - Shmups
+        - Aero Fighters Special
+        - Alpha Mission II
+        - Thunder Dragon 2 / bigbang.zip
+        - Blazeon
+        - Bosconian
+        - Chop Lifter
+        - Cosmo Gang The video
+        - Cotton 2
+        - Cotton Boomerang
+        - Cybattler
+        - Cyvern
+        - Darius Gaiden
+        - Deathsmiles
+        - DoDonPachi Dai Ou Jou v101
+        - DoDonPachi II
+        - Dragon Spirit
+        - EDF 
+        - Espgaluda II
+        - Fantastic Journey
+        - Flying Shark
+        - G-Darius (et doublon)
+        - Galaga 88
+        - Gemini Wing
+        - Gradius
+        - Gradius 4
+        - Gratia - Second Earth
+        - Gun Lock
+        - Hyper Duel
+        - Ibara Kuro
+        - Juno First
+        - Koutetsu Yousai Stralh
+        - Macross Plus
+        - Muchi Muchi Pork
+        - Mushihimesama
+        - Mushihimesama Futari
+        - Namco Classic Collection Vol 1
+        - Nemesis (Gradius)
+        - Ordyne
+        - P47
+        - P47 Aces
+        - Phelios
+        - Pink Sweets : Ibara Sorekari
+        - Plus Alpha
+        - Radiant Silvergun
+        - Raiden Fighters 2
+        - Raiden Fighters Jet
+        - Raiden II
+        - Ray Storm
+        - Saint Dragon
+        - Salamander
+        - Salamander 2
+        - Sexy Parodius
+        - Shienryu
+        - Hyper Dyne Side Arms
+        - Sol Divide
+        - Soukyugurentai
+        - Storm Blade
+        - Tenkomori Shooting
+        - The game paradise
+        - Time pilot
+        - Truxton
+        - Twin Bee Yahhoo
+        - Twin Cobra
+        - Twin Cobra II
+        - Twin Eagle II
+        - Twinkle Star Sprites
+        - Ultra X Weapons
+        - Vasara
+        - Vasara 2
+        - Viper Phase 1
+        - Wonder Planet
+        - Xevious 3DG
+        - Xevious
+        - Xexex (et doublon)
+        - Zero Wing
+        
+- Crash PowKiddy
+    - Darius II
+    
+    
+- Doublons NEOGEO
+    - Aero Fighters 2
+    - Andro Dunos
+    - Blazing Star
+    - Last resort
+    - Pulstar
+
+- Doublons CPS
+    - Carrier Air Wings
+    - Eco Fighter
+    - Mars Matrix
+    
+- Roms doublon à supprimer car déjà un parent
+    -
+    
+- Roms à renommer
+    - 2e Batsugun (Special Version)
+    
+- Bug Divers
+    - Metal Black : COIN ERROR. Il faudrait apparemment appyer très rapidement sur select, il s'agissait d'une mesure pour éviter les malins qui trafiquaient des pièces pour jouer gratuitement 
+    - R-Type Leo : impossible de démarrer / mettre des coin / afficher retroarch
+    - Rohga : menu lent, mais jeu jouable
